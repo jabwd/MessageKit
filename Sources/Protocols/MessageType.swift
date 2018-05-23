@@ -42,5 +42,13 @@ public protocol MessageType {
 
     /// The kind of message and its underlying data.
     var data: MessageData { get }
+    
+    var isContentLoading: Bool { get }
 
+}
+
+extension MessageType {
+    var isContentLoading: Bool {
+        return false
+    }
 }

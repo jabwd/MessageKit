@@ -72,8 +72,8 @@ open class PlayButtonView: UIView {
 
         let centerX = triangleView.centerXAnchor.constraint(equalTo: centerXAnchor)
         let centerY = triangleView.centerYAnchor.constraint(equalTo: centerYAnchor)
-        let width = triangleView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5)
-        let height = triangleView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5)
+        let width = triangleView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.4)
+        let height = triangleView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.4)
 
         triangleCenterXConstraint = centerX
 

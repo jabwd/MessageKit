@@ -31,7 +31,8 @@ open class LocationMessageCell: MessageCollectionViewCell {
 
     // MARK: - Properties
 
-    open var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    //open var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
+    open var activityIndicator = PulseActivityView()
 
     open var imageView = UIImageView()
     
@@ -43,6 +44,8 @@ open class LocationMessageCell: MessageCollectionViewCell {
         messageContainerView.addSubview(imageView)
         messageContainerView.addSubview(activityIndicator)
         setupConstraints()
+        
+        activityIndicator.tintColor = UIColor.white
     }
 
     open func setupConstraints() {
@@ -63,6 +66,7 @@ open class LocationMessageCell: MessageCollectionViewCell {
         let options = displayDelegate.snapshotOptionsForLocation(message: message, at: indexPath, in: messagesCollectionView)
         let annotationView = displayDelegate.annotationViewForLocation(message: message, at: indexPath, in: messagesCollectionView)
         let animationBlock = displayDelegate.animationBlockForLocation(message: message, at: indexPath, in: messagesCollectionView)
+        activityIndicator.tintColor = displayDelegate.textColor(for: message, at: indexPath, in: messagesCollectionView)
 
         guard case let .location(location) = message.data else { fatalError("") }
 

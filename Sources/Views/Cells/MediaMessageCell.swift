@@ -29,6 +29,8 @@ open class MediaMessageCell: MessageCollectionViewCell {
     open override class func reuseIdentifier() -> String { return "messagekit.cell.mediamessage" }
 
     // MARK: - Properties
+    
+    open var activityIndicator = PulseActivityView()
 
     open lazy var playButtonView: PlayButtonView = {
         let playButtonView = PlayButtonView()
@@ -43,22 +45,52 @@ open class MediaMessageCell: MessageCollectionViewCell {
         imageView.fillSuperview()
         playButtonView.centerInSuperview()
         playButtonView.constraint(equalTo: CGSize(width: 35, height: 35))
+        
+        //activityIndicator.frame = CGRect(x: 0.0, y: 0.0, width: 64, height: 64)
+        activityIndicator.tintColor = UIColor.blue
+        
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        
+        activityIndicator.centerInSuperview()
     }
 
     open override func setupSubviews() {
         super.setupSubviews()
         messageContainerView.addSubview(imageView)
         messageContainerView.addSubview(playButtonView)
+        messageContainerView.addSubview(activityIndicator)
         setupConstraints()
     }
 
     open override func configure(with message: MessageType, at indexPath: IndexPath, and messagesCollectionView: MessagesCollectionView) {
         super.configure(with: message, at: indexPath, and: messagesCollectionView)
+        guard let displayDelegate = messagesCollectionView.messagesDisplayDelegate else {
+            fatalError(MessageKitError.nilMessagesDisplayDelegate)
+        }
+        
+        activityIndicator.tintColor = displayDelegate.textColor(for: message, at: indexPath, in: messagesCollectionView)
+        
+        if message.isContentLoading == true {
+            activityIndicator.startAnimating()
+        } else {
+            activityIndicator.stopAnimating()
+        }
+        
         switch message.data {
         case .photo(let image):
+            if message.isContentLoading == true {
+                imageView.image = nil
+                playButtonView.isHidden = true
+                return
+            }
             imageView.image = image
             playButtonView.isHidden = true
         case .video(_, let image):
+            if message.isContentLoading == true {
+                imageView.image = nil
+                playButtonView.isHidden = true
+                return
+            }
             imageView.image = image
             playButtonView.isHidden = false
         default:
