@@ -29,7 +29,7 @@ open class MessageDateHeaderView: MessageHeaderView {
 
     // MARK: - Properties
 
-    open let dateLabel = UILabel()
+    public let dateLabel = UILabel()
 
     // MARK: - Initializers
 
