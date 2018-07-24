@@ -31,6 +31,7 @@ open class MessageCollectionViewCell: UICollectionViewCell, CollectionViewReusab
     }
 
     open var avatarView = AvatarView()
+    open var checkmarkView = UILabel()
 
     open var messageContainerView: MessageContainerView = {
         let containerView = MessageContainerView()
@@ -68,6 +69,7 @@ open class MessageCollectionViewCell: UICollectionViewCell, CollectionViewReusab
         contentView.addSubview(avatarView)
         contentView.addSubview(cellTopLabel)
         contentView.addSubview(cellBottomLabel)
+        messageContainerView.addSubview(checkmarkView)
     }
 
     open override func prepareForReuse() {
