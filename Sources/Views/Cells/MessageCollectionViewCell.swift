@@ -32,6 +32,7 @@ open class MessageCollectionViewCell: UICollectionViewCell, CollectionViewReusab
 
     open var avatarView = AvatarView()
     open var checkmarkView = UILabel()
+    open var checkmarkImageView = UIImageView()
 
     open var messageContainerView: MessageContainerView = {
         let containerView = MessageContainerView()
@@ -70,6 +71,26 @@ open class MessageCollectionViewCell: UICollectionViewCell, CollectionViewReusab
         contentView.addSubview(cellTopLabel)
         contentView.addSubview(cellBottomLabel)
         messageContainerView.addSubview(checkmarkView)
+        messageContainerView.addSubview(checkmarkImageView)
+        
+        configureConstraints()
+    }
+    
+    private func configureConstraints() {
+        checkmarkView.translatesAutoresizingMaskIntoConstraints = false
+        checkmarkImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        checkmarkView.heightAnchor.constraint(equalToConstant: 16.0).isActive = true
+        
+        checkmarkImageView.heightAnchor.constraint(equalToConstant: 16.0).isActive = true
+        checkmarkImageView.widthAnchor.constraint(equalTo: checkmarkImageView.heightAnchor).isActive = true
+        checkmarkImageView.trailingAnchor.constraint(equalTo: messageContainerView.trailingAnchor, constant: -8.0).isActive = true
+        checkmarkImageView.bottomAnchor.constraint(equalTo: messageContainerView.bottomAnchor, constant: -2.0).isActive = true
+        
+        checkmarkView.trailingAnchor.constraint(equalTo: checkmarkImageView.leadingAnchor, constant: -4.0).isActive = true
+        checkmarkView.bottomAnchor.constraint(equalTo: checkmarkImageView.bottomAnchor).isActive = true
+        //checkmarkView.trailingAnchor.constraint(equalTo: messageContainerView.trailingAnchor, constant: -8.0).isActive = true
+        //checkmarkView.bottomAnchor.constraint(equalTo: messageContainerView.bottomAnchor, constant: -2.0).isActive = true
     }
 
     open override func prepareForReuse() {
