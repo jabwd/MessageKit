@@ -59,6 +59,8 @@ open class MediaMessageCell: MessageCollectionViewCell {
         messageContainerView.addSubview(imageView)
         messageContainerView.addSubview(playButtonView)
         messageContainerView.addSubview(activityIndicator)
+        messageContainerView.bringSubview(toFront: checkmarkView)
+        messageContainerView.bringSubview(toFront: checkmarkImageView)
         setupConstraints()
     }
 

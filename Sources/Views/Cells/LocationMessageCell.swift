@@ -43,6 +43,8 @@ open class LocationMessageCell: MessageCollectionViewCell {
         imageView.contentMode = .scaleAspectFill
         messageContainerView.addSubview(imageView)
         messageContainerView.addSubview(activityIndicator)
+        messageContainerView.bringSubview(toFront: checkmarkView)
+        messageContainerView.bringSubview(toFront: checkmarkImageView)
         setupConstraints()
         
         activityIndicator.tintColor = UIColor.white

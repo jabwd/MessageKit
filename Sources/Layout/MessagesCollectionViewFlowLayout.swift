@@ -444,9 +444,10 @@ private extension MessagesCollectionViewFlowLayout {
             let height = messagesLayoutDelegate.heightForLocation(message: message, at: indexPath, with: maxWidth, in: messagesCollectionView)
             messageContainerSize = CGSize(width: width, height: height)
         }
-        
+        if messageContainerSize.width < 100 {
+            messageContainerSize.width = 100
+        }
         return messageContainerSize
-        
     }
     
 }
