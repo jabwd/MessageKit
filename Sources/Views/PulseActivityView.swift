@@ -45,7 +45,7 @@ public class PulseActivityView: UIView {
         bezierPath.addLine(to: CGPoint(x: frame.minX + 80.77, y: frame.minY + 4.5))
         bezierPath.addLine(to: CGPoint(x: frame.minX + 96.01, y: frame.minY + 71.47))
         bezierPath.addLine(to: CGPoint(x: frame.minX + 126.5, y: frame.minY + 71.47))
-        //UIColor.black.setStroke()
+        UIColor.black.setStroke()
         bezierPath.lineWidth = 3.0
         return bezierPath
     }
@@ -61,7 +61,7 @@ public class PulseActivityView: UIView {
         bezierPath.addLine(to: CGPoint(x: frame.minX + 51.91, y: frame.minY + 4.5))
         bezierPath.addLine(to: CGPoint(x: frame.minX + 61.61, y: frame.minY + 48.8))
         bezierPath.addLine(to: CGPoint(x: frame.minX + 81, y: frame.minY + 48.8))
-        //UIColor.black.setStroke()
+        UIColor.black.setStroke()
         bezierPath.lineWidth = 3.0
         return bezierPath
     }
@@ -139,6 +139,41 @@ public class PulseActivityView: UIView {
         
         pathLayer?.add(tailAnimation, forKey: "strokeStart")
         self.isHidden = false
+    }
+    
+    public func setProgress(_ progress: Float) {
+        self.isHidden = false
+        if path == nil {
+            path = generatePathSmall(generateFrameSmall())
+        }
+        
+        if pathLayer == nil {
+            pathLayer = CAShapeLayer()
+            pathLayer?.path = path?.cgPath
+           //pathLayer?.strokeColor = tintColor.cgColor
+            pathLayer?.strokeColor = UIColor(red: 0/255, green: 120/255, blue: 212/255, alpha: 1.0).cgColor
+            pathLayer?.fillColor = nil
+            pathLayer?.lineWidth = 3.0
+            pathLayer?.lineJoin = kCALineJoinRound
+            
+            let backgroundLayer = CAShapeLayer()
+            backgroundLayer.path = path?.cgPath
+            backgroundLayer.strokeColor = UIColor.black.cgColor
+            backgroundLayer.fillColor = nil
+            backgroundLayer.lineWidth = 3.0
+            backgroundLayer.lineJoin = kCALineJoinRound
+            backgroundLayer.strokeStart = 0.0
+            backgroundLayer.strokeEnd = 1.0
+            
+            self.layer.addSublayer(backgroundLayer)
+            self.layer.addSublayer(pathLayer!)
+        }
+        
+        pathLayer?.strokeStart = 0.0
+        
+        UIView.animate(withDuration: 0.12) {
+            self.pathLayer?.strokeEnd = CGFloat(progress)
+        }
     }
 	
 	public func stopAnimating() {

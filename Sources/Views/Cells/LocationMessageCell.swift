@@ -72,6 +72,10 @@ open class LocationMessageCell: MessageCollectionViewCell {
 
         guard case let .location(location) = message.data else { fatalError("") }
 
+       /* activityIndicator.setProgress(message.contentLoadingProgress)
+        if message.isContentLoading == false {
+            activityIndicator.isHidden = true
+        }*/
         activityIndicator.startAnimating()
 
         let snapshotOptions = MKMapSnapshotOptions()

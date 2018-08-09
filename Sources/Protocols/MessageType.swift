@@ -45,10 +45,15 @@ public protocol MessageType {
     
     var isContentLoading: Bool { get }
 
+    var contentLoadingProgress: Float { get }
 }
 
 extension MessageType {
     var isContentLoading: Bool {
         return false
+    }
+    
+    var contentLoadingProgress: Float {
+        return 0.0
     }
 }

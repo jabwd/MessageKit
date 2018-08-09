@@ -72,10 +72,9 @@ open class MediaMessageCell: MessageCollectionViewCell {
         
         activityIndicator.tintColor = displayDelegate.textColor(for: message, at: indexPath, in: messagesCollectionView)
         
-        if message.isContentLoading == true {
-            activityIndicator.startAnimating()
-        } else {
-            activityIndicator.stopAnimating()
+        activityIndicator.setProgress(message.contentLoadingProgress)
+        if message.isContentLoading == false {
+            activityIndicator.isHidden = true
         }
         
         switch message.data {
